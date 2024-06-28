@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.Base64;
 
 
 @RestController
@@ -59,6 +60,26 @@ public class ProfileDetailsController {
         headers.setContentType(MediaType.IMAGE_PNG);
         return ResponseEntity.ok().headers(headers).body(qrCodeImage);
     }
+
+    @GetMapping("/qrcode/person/{id}")
+    public ResponseEntity<byte[]> generateProfileQRCode(@PathVariable Long id) throws WriterException, IOException {
+        ProfileDetailsResponse profileDetails = profileDetailService.getProfileDetailsById(id);
+
+        String qrCodeContent = "Name: " + profileDetails.getName() + "\n"
+                + "Profession: " + profileDetails.getProfession() + "\n"
+                + "Profile: " + profileDetails.getProfile() + "\n"
+                + "Mobile Number: " + profileDetails.getMobileNumber() + "\n"
+                + "Alternate Number: " + profileDetails.getAlternateNumber() + "\n"
+                + "Email: " + profileDetails.getEmail() + "\n"
+                + "Address: " + profileDetails.getAddress() + "\n"
+                + "Company Name: " + profileDetails.getCompanyName() + "\n"
+                + "LinkedIn URL: " + profileDetails.getLinkedInUrl();
+        byte[] qrCodeImage = QRCodeGenerator.generateQRCodeImage(qrCodeContent, 350, 350);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return ResponseEntity.ok().headers(headers).body(qrCodeImage);
+    }
+
 
 }
 
