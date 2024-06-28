@@ -15,7 +15,7 @@ public class ProfileDetailsResponse {
     private String companyName;
     private String linkedInUrl;
     private byte[] photo;
-    private byte[] qrCode;
+//    private byte[] qrCode;
 
     public ProfileDetailsResponse(ProfileDetails profileDetails) {
         this.id = profileDetails.getId();
@@ -118,11 +118,11 @@ public class ProfileDetailsResponse {
         this.photo = photo;
     }
 
-    public byte[] getQrCode() {
-        return qrCode;
-    }
-
-    public void setQrCode(byte[] qrCode) {
-        this.qrCode = qrCode;
-    }
+//    public byte[] getQrCode() {
+//        return qrCode;
+//    }
+//
+//    public void setQrCode(byte[] qrCode) {
+//        this.qrCode = qrCode;
+//    }
 }
