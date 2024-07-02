@@ -2,7 +2,6 @@ package com.cards.Cards.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 
 public class ProfileDetailsDTO {
 
@@ -142,4 +141,6 @@ public class ProfileDetailsDTO {
     public void setPhoto(MultipartFile photo) {
         this.photo = photo;
     }
+
+
 }
