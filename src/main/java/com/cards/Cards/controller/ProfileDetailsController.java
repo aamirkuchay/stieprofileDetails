@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.Base64;
 
 
 @RestController
@@ -55,7 +54,7 @@ public class ProfileDetailsController {
     @GetMapping("/qrcode/{id}")
     public ResponseEntity<byte[]> generateQRCode(@PathVariable Long id) throws WriterException, IOException {
         String url = QRCODE_URL + id;
-        byte[] qrCodeImage = QRCodeGenerator.generateQRCodeImage(url, 350, 350);
+        byte[] qrCodeImage = QRCodeGenerator.generateQRCodeImage(url, 150, 150);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
         return ResponseEntity.ok().headers(headers).body(qrCodeImage);
@@ -65,16 +64,16 @@ public class ProfileDetailsController {
     public ResponseEntity<byte[]> generateProfileQRCode(@PathVariable Long id) throws WriterException, IOException {
         ProfileDetailsResponse profileDetails = profileDetailService.getProfileDetailsById(id);
 
-        String qrCodeContent = "Name: " + profileDetails.getName() + "\n"
+        String qrCodeContent = "Name: " + profileDetails.getFirstName()+ "\n"
                 + "Profession: " + profileDetails.getProfession() + "\n"
                 + "Profile: " + profileDetails.getProfile() + "\n"
                 + "Mobile Number: " + profileDetails.getMobileNumber() + "\n"
                 + "Alternate Number: " + profileDetails.getAlternateNumber() + "\n"
                 + "Email: " + profileDetails.getEmail() + "\n"
-                + "Address: " + profileDetails.getAddress() + "\n"
+                + "Address: " + profileDetails.getStreet() + profileDetails.getState()+ "\n"
                 + "Company Name: " + profileDetails.getCompanyName() + "\n"
                 + "LinkedIn URL: " + profileDetails.getLinkedInUrl();
-        byte[] qrCodeImage = QRCodeGenerator.generateQRCodeImage(qrCodeContent, 350, 350);
+        byte[] qrCodeImage = QRCodeGenerator.generateQRCodeImage(qrCodeContent, 150, 150);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
         return ResponseEntity.ok().headers(headers).body(qrCodeImage);

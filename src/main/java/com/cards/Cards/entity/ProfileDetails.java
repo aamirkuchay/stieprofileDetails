@@ -11,19 +11,24 @@ public class ProfileDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String profession;
     private String profile;
     private String mobileNumber;
     private String alternateNumber;
+    private String country;
     private String email;
-    private String address;
+    private String pincode;
+    private String state;
+    private String street;
     private String companyName;
     private String linkedInUrl;
     private String photo;
 
 
-    public ProfileDetails(){}
+    public ProfileDetails() {
+    }
 
     public Long getId() {
         return id;
@@ -33,12 +38,28 @@ public class ProfileDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getProfession() {
@@ -81,12 +102,28 @@ public class ProfileDetails {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPincode() {
+        return pincode;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getCompanyName() {

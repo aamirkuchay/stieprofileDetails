@@ -27,13 +27,16 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
     public ProfileDetails saveProfileDetails(ProfileDetailsDTO profileDetailsDTO) throws IOException {
 
         ProfileDetails profileDetails = new ProfileDetails();
-        profileDetails.setName(profileDetailsDTO.getName());
+        profileDetails.setFirstName(profileDetailsDTO.getFirstName());
+        profileDetails.setLastName(profileDetailsDTO.getLastName());
         profileDetails.setProfession(profileDetailsDTO.getProfession());
         profileDetails.setProfile(profileDetailsDTO.getProfile());
         profileDetails.setMobileNumber(profileDetailsDTO.getMobileNumber());
         profileDetails.setAlternateNumber(profileDetailsDTO.getAlternateNumber());
         profileDetails.setEmail(profileDetailsDTO.getEmail());
-        profileDetails.setAddress(profileDetailsDTO.getAddress());
+        profileDetails.setState(profileDetailsDTO.getState());
+        profileDetails.setPincode(profileDetailsDTO.getPincode());
+        profileDetails.setStreet(profileDetailsDTO.getStreet());
         profileDetails.setCompanyName(profileDetailsDTO.getCompanyName());
         profileDetails.setLinkedInUrl(profileDetailsDTO.getLinkedInUrl());
 
@@ -68,13 +71,16 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
         Optional<ProfileDetails> optionalProfileDetails = profileDetailsRepository.findById(id);
         if (optionalProfileDetails.isPresent()) {
             ProfileDetails profileDetails = optionalProfileDetails.get();
-            profileDetails.setName(profileDetailsDTO.getName());
+            profileDetails.setFirstName(profileDetailsDTO.getFirstName());
+            profileDetails.setLastName(profileDetailsDTO.getLastName());
             profileDetails.setProfession(profileDetailsDTO.getProfession());
             profileDetails.setProfile(profileDetailsDTO.getProfile());
             profileDetails.setMobileNumber(profileDetailsDTO.getMobileNumber());
             profileDetails.setAlternateNumber(profileDetailsDTO.getAlternateNumber());
             profileDetails.setEmail(profileDetailsDTO.getEmail());
-            profileDetails.setAddress(profileDetailsDTO.getAddress());
+            profileDetails.setState(profileDetailsDTO.getState());
+            profileDetails.setPincode(profileDetailsDTO.getPincode());
+            profileDetails.setStreet(profileDetailsDTO.getStreet());
             profileDetails.setCompanyName(profileDetailsDTO.getCompanyName());
             profileDetails.setLinkedInUrl(profileDetailsDTO.getLinkedInUrl());
 
