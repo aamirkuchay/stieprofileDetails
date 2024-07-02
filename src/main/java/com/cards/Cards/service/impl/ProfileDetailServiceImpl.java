@@ -31,7 +31,7 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
         profileDetails.setLastName(profileDetailsDTO.getLastName());
         profileDetails.setProfession(profileDetailsDTO.getProfession());
         profileDetails.setProfile(profileDetailsDTO.getProfile());
-        profileDetails.setCountry(profileDetails.getCountry());
+        profileDetails.setCountry(profileDetailsDTO.getCountry());
         profileDetails.setMobileNumber(profileDetailsDTO.getMobileNumber());
         profileDetails.setAlternateNumber(profileDetailsDTO.getAlternateNumber());
         profileDetails.setEmail(profileDetailsDTO.getEmail());
@@ -76,7 +76,7 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
             profileDetails.setLastName(profileDetailsDTO.getLastName());
             profileDetails.setProfession(profileDetailsDTO.getProfession());
             profileDetails.setProfile(profileDetailsDTO.getProfile());
-            profileDetails.setCountry(profileDetails.getCountry());
+            profileDetails.setCountry(profileDetailsDTO.getCountry());
             profileDetails.setMobileNumber(profileDetailsDTO.getMobileNumber());
             profileDetails.setAlternateNumber(profileDetailsDTO.getAlternateNumber());
             profileDetails.setEmail(profileDetailsDTO.getEmail());
