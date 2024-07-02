@@ -36,6 +36,7 @@ public class ProfileDetailsResponse {
         this.street = profileDetails.getStreet();
         this.companyName = profileDetails.getCompanyName();
         this.linkedInUrl = profileDetails.getLinkedInUrl();
+        this.country = profileDetails.getCountry();
     }
 
 

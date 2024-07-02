@@ -5,7 +5,10 @@ import com.cards.Cards.dto.ProfileDetailsResponse;
 import com.cards.Cards.entity.ProfileDetails;
 import com.cards.Cards.respository.ProfileDetailsRepository;
 import com.cards.Cards.service.ProfileDetailService;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
@@ -42,7 +45,13 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
         profileDetails.setLinkedInUrl(profileDetailsDTO.getLinkedInUrl());
 
         MultipartFile photoFile = profileDetailsDTO.getPhoto();
+
         if (photoFile != null && !photoFile.isEmpty()) {
+            Tika tika = new Tika();
+            String mimeType = tika.detect(photoFile.getBytes());
+            if (!mimeType.equals("image/jpeg") && !mimeType.equals("image/png") && !mimeType.equals("image/jpg")) {
+                throw new IOException("Invalid file type. Only JPEG and PNG files are allowed.");
+            }
             String photoFileName = System.currentTimeMillis() + "_" + photoFile.getOriginalFilename();
             Files.copy(photoFile.getInputStream(), Paths.get(UPLOAD_DIR + File.separator + photoFileName));
             profileDetails.setPhoto(photoFileName);
@@ -62,6 +71,8 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
         }
         return response;
     }
+
+
 
     private byte[] readPhotoFromFile(String photoFileName) throws IOException {
         return Files.readAllBytes(Paths.get("C:\\usr\\cards\\" + photoFileName));
@@ -88,6 +99,11 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
 
             MultipartFile photoFile = profileDetailsDTO.getPhoto();
             if (photoFile != null && !photoFile.isEmpty()) {
+                Tika tika = new Tika();
+                String mimeType = tika.detect(photoFile.getBytes());
+                if (!mimeType.equals("image/jpeg") && !mimeType.equals("image/png") && !mimeType.equals("image/jpg")) {
+                    throw new IOException("Invalid file type. Only JPEG and PNG files are allowed.");
+                }
                 String photoFileName = System.currentTimeMillis() + "_" + photoFile.getOriginalFilename();
                 Files.copy(photoFile.getInputStream(), Paths.get(UPLOAD_DIR + File.separator + photoFileName));
                 profileDetails.setPhoto(photoFileName);
@@ -96,6 +112,10 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
         } else {
             throw new RuntimeException("Profile not found");
         }
+    }
+    @Override
+    public Page<ProfileDetails> findAllByPage(Pageable pageable) {
+        return profileDetailsRepository.findAll(pageable);
     }
 
 

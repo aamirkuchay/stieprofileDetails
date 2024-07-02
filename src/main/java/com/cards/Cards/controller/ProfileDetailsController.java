@@ -7,7 +7,10 @@ import com.cards.Cards.service.ProfileDetailService;
 import com.cards.Cards.utility.QRCodeGenerator;
 import com.google.zxing.WriterException;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -77,6 +80,14 @@ public class ProfileDetailsController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
         return ResponseEntity.ok().headers(headers).body(qrCodeImage);
+    }
+
+
+    @GetMapping("/view")
+    public Page<ProfileDetails> findAllByPage(@RequestParam(defaultValue = "1") int page) {
+
+        Pageable pageable = PageRequest.of(page - 1, 10);
+        return profileDetailService.findAllByPage(pageable);
     }
 
 
