@@ -2,7 +2,6 @@ package com.cards.Cards.dto;
 
 import com.cards.Cards.entity.ProfileDetails;
 
-import java.util.List;
 
 public class ProfileDetailsResponse {
 

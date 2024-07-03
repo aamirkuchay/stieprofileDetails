@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +22,7 @@ import java.util.Optional;
 public class ProfileDetailServiceImpl implements ProfileDetailService {
 
     @Autowired
-   private ProfileDetailsRepository profileDetailsRepository;
+    private ProfileDetailsRepository profileDetailsRepository;
 
     private final String UPLOAD_DIR = "C:\\usr\\cards";
 
@@ -45,7 +46,6 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
         profileDetails.setLinkedInUrl(profileDetailsDTO.getLinkedInUrl());
 
         MultipartFile photoFile = profileDetailsDTO.getPhoto();
-
         if (photoFile != null && !photoFile.isEmpty()) {
             Tika tika = new Tika();
             String mimeType = tika.detect(photoFile.getBytes());
@@ -56,9 +56,8 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
             Files.copy(photoFile.getInputStream(), Paths.get(UPLOAD_DIR + File.separator + photoFileName));
             profileDetails.setPhoto(photoFileName);
         }
-
         return profileDetailsRepository.save(profileDetails);
-        }
+    }
 
     @Override
     public ProfileDetailsResponse getProfileDetailsById(Long id) throws RuntimeException, IOException {
@@ -71,7 +70,6 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
         }
         return response;
     }
-
 
 
     private byte[] readPhotoFromFile(String photoFileName) throws IOException {
@@ -113,13 +111,13 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
             throw new RuntimeException("Profile not found");
         }
     }
+
     @Override
     public Page<ProfileDetails> findAllByPage(Pageable pageable) {
         return profileDetailsRepository.findAll(pageable);
     }
 
 
-
-    }
+}
 
 

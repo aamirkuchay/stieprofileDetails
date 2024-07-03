@@ -21,13 +21,14 @@ import java.io.IOException;
 
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/profile")
 public class ProfileDetailsController {
 
     @Autowired
     private ProfileDetailService profileDetailService;
 
-    private final String QRCODE_URL = "http://localhost:8089/profile/";
+    private final String QRCODE_URL = "http://localhost:5173/profile/";
 
     @PostMapping("/save")
     public ResponseEntity<ProfileDetails> saveProfileDetails(@Valid @ModelAttribute ProfileDetailsDTO profileDetailsDTO,
@@ -57,7 +58,7 @@ public class ProfileDetailsController {
     @GetMapping("/qrcode/{id}")
     public ResponseEntity<byte[]> generateQRCode(@PathVariable Long id) throws WriterException, IOException {
         String url = QRCODE_URL + id;
-        byte[] qrCodeImage = QRCodeGenerator.generateQRCodeImage(url, 150, 150);
+        byte[] qrCodeImage = QRCodeGenerator.generateQRCodeImage(url, 300, 300);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
         return ResponseEntity.ok().headers(headers).body(qrCodeImage);
@@ -75,7 +76,9 @@ public class ProfileDetailsController {
                 + "Email: " + profileDetails.getEmail() + "\n"
                 + "Address: " + profileDetails.getStreet() + profileDetails.getState()+ "\n"
                 + "Company Name: " + profileDetails.getCompanyName() + "\n"
-                + "LinkedIn URL: " + profileDetails.getLinkedInUrl();
+                + "LinkedIn URL: " + profileDetails.getLinkedInUrl() + "\n"
+                + "PinCode: " + profileDetails.getPincode();
+
         byte[] qrCodeImage = QRCodeGenerator.generateQRCodeImage(qrCodeContent, 150, 150);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
@@ -85,7 +88,6 @@ public class ProfileDetailsController {
 
     @GetMapping("/view")
     public Page<ProfileDetails> findAllByPage(@RequestParam(defaultValue = "1") int page) {
-
         Pageable pageable = PageRequest.of(page - 1, 10);
         return profileDetailService.findAllByPage(pageable);
     }
