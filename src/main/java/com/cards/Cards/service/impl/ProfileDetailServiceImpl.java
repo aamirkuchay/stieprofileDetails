@@ -117,6 +117,14 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
         return profileDetailsRepository.findAll(pageable);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        ProfileDetails profileDetails = profileDetailsRepository.findById(id)
+                .orElseThrow(() -> new ArithmeticException("Unit not found with given id : " + id));
+        profileDetailsRepository.delete(profileDetails);
+
+    }
+
 
 }
 

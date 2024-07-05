@@ -19,4 +19,6 @@ public interface ProfileDetailService {
     ProfileDetailsResponse getProfileDetailsById(Long id) throws IOException;
 
     Page<ProfileDetails> findAllByPage(Pageable pageable);
+
+    void deleteById(Long id);
 }

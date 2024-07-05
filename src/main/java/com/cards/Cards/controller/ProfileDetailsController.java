@@ -92,6 +92,12 @@ public class ProfileDetailsController {
         return profileDetailService.findAllByPage(pageable);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
+        profileDetailService.deleteById(id);
+        return ResponseEntity.ok("deleted successfully");
+    }
+
 
 }
 
