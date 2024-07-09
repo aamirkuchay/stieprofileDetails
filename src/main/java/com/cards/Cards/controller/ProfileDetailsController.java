@@ -38,7 +38,7 @@ public class ProfileDetailsController {
         return new ResponseEntity<>(savedProfile, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/viewCard/{id}")
     public ResponseEntity<ProfileDetailsResponse> getProfileDetailsById(@PathVariable Long id) throws IOException {
         ProfileDetailsResponse response = profileDetailService.getProfileDetailsById(id);
         return ResponseEntity.ok(response);
