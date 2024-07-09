@@ -68,7 +68,8 @@ public class ProfileDetailsController {
     public ResponseEntity<byte[]> generateProfileQRCode(@PathVariable Long id) throws WriterException, IOException {
         ProfileDetailsResponse profileDetails = profileDetailService.getProfileDetailsById(id);
 
-        String qrCodeContent = "Name: " + profileDetails.getFirstName()+ "\n"
+        String qrCodeContent = "Fist Name: " + profileDetails.getFirstName()+ "\n"
+                + "Last Name: " + profileDetails.getLastName()+ "\n"
                 + "Profession: " + profileDetails.getProfession() + "\n"
                 + "Profile: " + profileDetails.getProfile() + "\n"
                 + "Mobile Number: " + profileDetails.getMobileNumber() + "\n"
@@ -77,6 +78,7 @@ public class ProfileDetailsController {
                 + "Address: " + profileDetails.getStreet() + profileDetails.getState()+ "\n"
                 + "Company Name: " + profileDetails.getCompanyName() + "\n"
                 + "LinkedIn URL: " + profileDetails.getLinkedInUrl() + "\n"
+                + "Country: " + profileDetails.getCountry()+ "\n"
                 + "PinCode: " + profileDetails.getPincode();
 
         byte[] qrCodeImage = QRCodeGenerator.generateQRCodeImage(qrCodeContent, 150, 150);
@@ -88,7 +90,7 @@ public class ProfileDetailsController {
 
     @GetMapping("/view")
     public Page<ProfileDetails> findAllByPage(@RequestParam(defaultValue = "1") int page) {
-        Pageable pageable = PageRequest.of(page - 1, 10);
+        Pageable pageable = PageRequest.of(page - 1, 2);
         return profileDetailService.findAllByPage(pageable);
     }
 

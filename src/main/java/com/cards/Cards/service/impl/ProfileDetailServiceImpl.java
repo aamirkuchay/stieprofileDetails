@@ -29,6 +29,7 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
 
     @Override
     public ProfileDetails saveProfileDetails(ProfileDetailsDTO profileDetailsDTO) throws IOException {
+        Files.createDirectories(Paths.get(UPLOAD_DIR));
 
         ProfileDetails profileDetails = new ProfileDetails();
         profileDetails.setFirstName(profileDetailsDTO.getFirstName());
