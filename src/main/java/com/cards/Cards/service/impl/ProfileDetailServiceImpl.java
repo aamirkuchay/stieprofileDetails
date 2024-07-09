@@ -3,6 +3,7 @@ package com.cards.Cards.service.impl;
 import com.cards.Cards.dto.ProfileDetailsDTO;
 import com.cards.Cards.dto.ProfileDetailsResponse;
 import com.cards.Cards.entity.ProfileDetails;
+import com.cards.Cards.exception.ResourceNotFoundException;
 import com.cards.Cards.respository.ProfileDetailsRepository;
 import com.cards.Cards.service.ProfileDetailService;
 import org.apache.tika.Tika;
@@ -63,7 +64,7 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
     @Override
     public ProfileDetailsResponse getProfileDetailsById(Long id) throws RuntimeException, IOException {
         ProfileDetails profileDetails = profileDetailsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Profile not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Profile not found with id: " + id));
         ProfileDetailsResponse response = new ProfileDetailsResponse(profileDetails);
         if (profileDetails.getPhoto() != null) {
             byte[] photoBytes = readPhotoFromFile(profileDetails.getPhoto());
@@ -109,7 +110,7 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
             }
             return profileDetailsRepository.save(profileDetails);
         } else {
-            throw new RuntimeException("Profile not found");
+            throw new ResourceNotFoundException("Profile not found");
         }
     }
 
@@ -121,7 +122,7 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
     @Override
     public void deleteById(Long id) {
         ProfileDetails profileDetails = profileDetailsRepository.findById(id)
-                .orElseThrow(() -> new ArithmeticException("Unit not found with given id : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Unit not found with given id : " + id));
         profileDetailsRepository.delete(profileDetails);
 
     }
