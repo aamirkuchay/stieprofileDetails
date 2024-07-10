@@ -21,7 +21,6 @@ import java.io.IOException;
 
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/profile")
 public class ProfileDetailsController {
 

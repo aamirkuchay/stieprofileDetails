@@ -6,7 +6,6 @@ import com.cards.Cards.entity.User;
 public class JwtAuthenticationResponse {
 
     private String token;
-    private String refreshToken;
     private User user;
 
     public JwtAuthenticationResponse() {}
@@ -16,12 +15,7 @@ public class JwtAuthenticationResponse {
     public void setToken(String token) {
         this.token = token;
     }
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
+
 
 
     public User getUser() {
@@ -32,7 +26,7 @@ public class JwtAuthenticationResponse {
     }
     @Override
     public String toString() {
-        return "JwtAuthenticationResponse [token=" + token + ", refreshToken=" + refreshToken + "]";
+        return "JwtAuthenticationResponse [token=" + token + "]";
     }
 
 
