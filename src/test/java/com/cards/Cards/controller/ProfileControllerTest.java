@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ProfileControllerTest {
 
@@ -152,6 +152,35 @@ public class ProfileControllerTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(profilePage, responseEntity.getBody());
     }
+
+
+
+
+    @Test
+    public void testDeleteEmployee() {
+        Long id = 1L;
+
+        doNothing().when(profileDetailService).deleteById(id);
+
+        ResponseEntity<String> responseEntity = profileController.deleteEmployee(id);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals("deleted successfully", responseEntity.getBody());
+    }
+
+    @Test
+    public void testDeleteEmployeeNotFound() {
+        Long id = 1L;
+
+        doThrow(new ResourceNotFoundException("Profile not found with given id : " + id))
+                .when(profileDetailService).deleteById(id);
+
+        ResponseEntity<String> responseEntity = profileController.deleteEmployee(id);
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        assertEquals("Profile not found with given id : " + id, responseEntity.getBody());
+    }
+
 
 
 }

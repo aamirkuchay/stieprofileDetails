@@ -122,7 +122,7 @@ public class ProfileDetailServiceImpl implements ProfileDetailService {
     @Override
     public void deleteById(Long id) {
         ProfileDetails profileDetails = profileDetailsRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Unit not found with given id : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Profile not found with given id : " + id));
         profileDetailsRepository.delete(profileDetails);
 
     }
