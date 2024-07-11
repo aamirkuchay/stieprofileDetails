@@ -49,7 +49,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request-> request.requestMatchers("/api/v1/auth/**","/swagger-ui/**","/swagger-ui.html/**","/v3/api-docs/**","/swagger-resources/**","/webjars/**","/profile/viewCard/**")
                         .permitAll()
                         .requestMatchers("/api/v1/admin").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers("/user").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers("/user").hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
                         .anyRequest().authenticated())
                 .sessionManagement(manager ->manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

@@ -89,7 +89,7 @@ public class ProfileDetailsController {
 
     @GetMapping("/view")
     public Page<ProfileDetails> findAllByPage(@RequestParam(defaultValue = "1") int page) {
-        Pageable pageable = PageRequest.of(page - 1, 2);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         return profileDetailService.findAllByPage(pageable);
     }
 
