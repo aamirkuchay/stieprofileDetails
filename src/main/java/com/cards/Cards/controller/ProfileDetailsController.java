@@ -88,9 +88,13 @@ public class ProfileDetailsController {
 
 
     @GetMapping("/view")
-    public Page<ProfileDetails> findAllByPage(@RequestParam(defaultValue = "1") int page) {
+    public ResponseEntity<Page<ProfileDetails>> findAllByPage(@RequestParam(defaultValue = "1") int page) {
         Pageable pageable = PageRequest.of(page - 1, 10);
-        return profileDetailService.findAllByPage(pageable);
+        Page<ProfileDetails> profileDetailsPage = profileDetailService.findAllByPage(pageable);
+        return ResponseEntity.ok(profileDetailsPage);
+//    public Page<ProfileDetails> findAllByPage(@RequestParam(defaultValue = "1") int page) {
+//        Pageable pageable = PageRequest.of(page - 1, 10);
+//        return profileDetailService.findAllByPage(pageable);
     }
 
     @DeleteMapping("/{id}")
